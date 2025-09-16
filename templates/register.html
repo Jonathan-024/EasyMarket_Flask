@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Inscription vendeur</h2>
+<form method="POST" class="card">
+  <label>Nom</label>
+  <input type="text" name="nom" required>
+  <label>Email</label>
+  <input type="email" name="email" required>
+  <label>Téléphone (format international +243...)</label>
+  <input type="tel" name="telephone" required placeholder="+243...">
+  <label>Boutique</label>
+  <input type="text" name="boutique" required>
+  <label>Mot de passe</label>
+  <input type="password" name="password" required>
+  <button class="btn" type="submit">Créer le compte</button>
+</form>
+{% endblock %}

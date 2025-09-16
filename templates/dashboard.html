@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Tableau de bord — {{ vendeur.boutique }}</h2>
+
+<!-- OneSignal init + tagging vendeur_id -->
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  window.OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "{{ onesignal_app_id }}",
+      notifyButton: { enable: true },
+      allowLocalhostAsSecureOrigin: true
+    });
+    OneSignal.sendTag("vendeur_id", "{{ vendeur.id }}");
+  });
+</script>
+
+<div class="cards">
+  {% for r in reservations %}
+  <div class="card">
+    <div class="header">
+      <strong>{{ r.client_nom }}</strong>
+      <div>📞 {{ r.client_telephone }}</div>
+    </div>
+
+    {% if r.produits %}
+      <div class="section">
+        <strong>Produits :</strong>
+        <ul class="products">
+          {% for p in r.produits.split(';') %}
+            <li>{{ p }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% elif r.image_liste %}
+      <div class="section">
+        <strong>Liste envoyée :</strong><br>
+        {% set fname = r.image_liste.split('/')[-1] %}
+        <a href="{{ url_for('static', filename='uploads/' ~ fname) }}" target="_blank">
+          <img src="{{ url_for('static', filename='uploads/' ~ fname) }}" alt="Liste du client" class="photo">
+        </a>
+      </div>
+    {% else %}
+      <em>Aucune liste fournie</em>
+    {% endif %}
+
+    <div class="section"><strong>Heure retrait :</strong> {{ r.heure_retrait.strftime('%H:%M') }}</div>
+
+    <div class="actions">
+      <a class="btn-call" href="tel:{{ r.client_telephone }}">📞 Appeler</a>
+      <a class="btn-wa" target="_blank" href="https://wa.me/{{ r.client_telephone|replace(' ', '') }}">💬 WhatsApp</a>
+    </div>
+
+    {% if r.retire %}
+      <div class="status ok">✅ Retiré</div>
+    {% else %}
+      <form method="POST" action="{{ url_for('valider_retrait') }}" class="code-form">
+        <input type="text" name="code_retrait" placeholder="Code" required>
+        <button type="submit" class="btn">Valider</button>
+      </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

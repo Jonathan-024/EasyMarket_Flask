@@ -1,0 +1,37 @@
+:root { --primary:#28a745; --blue:#007bff; --wa:#25D366; --bg:#f6f7fb; --text:#222; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; color:var(--text); background:var(--bg); }
+.topbar { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.06); position:sticky; top:0; z-index:10; }
+.topbar .brand { font-weight:700; color:var(--primary); }
+.topbar nav a { margin-left:12px; color:#333; text-decoration:none; }
+.container { padding:16px; max-width:900px; margin:0 auto; }
+.footer { text-align:center; padding:24px; color:#666; }
+
+.btn { background:var(--primary); color:#fff; border:none; padding:10px 14px; border-radius:6px; text-decoration:none; display:inline-block; }
+.btn-secondary { background:#e9ecef; color:#222; border:none; padding:8px 12px; border-radius:6px; }
+.btn-call { background:var(--primary); color:#fff; text-decoration:none; padding:8px 10px; border-radius:6px; text-align:center; flex:1; }
+.btn-wa { background:var(--wa); color:#fff; text-decoration:none; padding:8px 10px; border-radius:6px; text-align:center; flex:1; }
+
+.card { background:#fff; border-radius:10px; padding:14px; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:16px; }
+.cards { display:grid; grid-template-columns:1fr; gap:14px; }
+@media (min-width: 768px) { .cards { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
+
+label { display:block; margin:10px 0 6px; }
+input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; }
+.produit-row { display:flex; gap:8px; margin-bottom:8px; }
+.divider { margin:12px 0; font-weight:600; color:#555; }
+
+.header { font-size:1.05rem; margin-bottom:8px; }
+.section { margin:8px 0; }
+.products { padding-left:18px; margin:6px 0; }
+.photo { max-width:100%; border:1px solid #ddd; border-radius:6px; }
+
+.actions { display:flex; gap:8px; margin-top:8px; }
+.code-form { display:flex; gap:8px; margin-top:10px; }
+.status.ok { color:green; font-weight:700; margin-top:8px; }
+
+.flashes { margin-bottom:12px; }
+.flash { padding:10px; border-radius:6px; margin-bottom:8px; }
+.flash.success { background:#e6f6ec; color:#1e7e34; }
+.flash.info { background:#e8f1ff; color:#004085; }
+.flash.danger { background:#fdecea; color:#a71d2a; }

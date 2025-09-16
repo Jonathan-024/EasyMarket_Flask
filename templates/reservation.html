@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Nouvelle réservation</h2>
+
+<form method="POST" enctype="multipart/form-data" class="card">
+  <label>Nom complet</label>
+  <input type="text" name="nom" required>
+
+  <label>Téléphone (format international +243...)</label>
+  <input type="tel" name="telephone" required placeholder="+243...">
+
+  <label>Boutique</label>
+  <select name="vendeur_id" required>
+    {% for v in vendeurs %}
+      <option value="{{ v.id }}">{{ v.boutique }} — {{ v.nom }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Heure de retrait</label>
+  <input type="time" name="heure_retrait" required>
+
+  <div class="divider">Option 1 : Saisir les produits</div>
+  <div id="produits-container">
+    <div class="produit-row">
+      <input type="text" name="produit_nom" placeholder="Produit">
+      <input type="text" name="produit_qte" placeholder="Quantité">
+    </div>
+  </div>
+  <button class="btn-secondary" type="button" onclick="ajouterProduit()">+ Ajouter un produit</button>
+
+  <div class="divider">Option 2 : Envoyer une photo de la liste</div>
+  <input type="file" name="image_liste" accept="image/*">
+
+  <button class="btn" type="submit">Confirmer la réservation</button>
+</form>
+
+<script>
+function ajouterProduit() {
+  const c = document.getElementById('produits-container');
+  const row = document.createElement('div');
+  row.className = 'produit-row';
+  row.innerHTML = `
+    <input type="text" name="produit_nom" placeholder="Produit">
+    <input type="text" name="produit_qte" placeholder="Quantité">`;
+  c.appendChild(row);
+}
+</script>
+{% endblock %}
